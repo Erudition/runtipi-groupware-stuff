@@ -16,7 +16,8 @@
         "DATABASE_URL": "postgresql://postgres:password@db/loomio_production",
         "REDIS_URL": "redis://redis:6379/0",
         "ACTIVE_STORAGE_SERVICE": "local",
-        "LOOMIO_SYSTEM_RELOAD": "1"
+        "LOOMIO_SYSTEM_RELOAD": "1",
+        "RAILS_ENV": "production"
       },
       "volumes": [
         {
@@ -87,7 +88,8 @@
         "DATABASE_URL": "postgresql://postgres:password@db/loomio_production",
         "REDIS_URL": "redis://redis:6379/0",
         "ACTIVE_STORAGE_SERVICE": "local",
-        "LOOMIO_SYSTEM_RELOAD": "1"
+        "LOOMIO_SYSTEM_RELOAD": "1",
+        "RAILS_ENV": "production"
       },
       "volumes": [
         {
@@ -185,7 +187,8 @@
         "DATABASE_URL": "postgresql://postgres:password@db/loomio_production",
         "REDIS_URL": "redis://redis:6379/0",
         "ACTIVE_STORAGE_SERVICE": "local",
-        "LOOMIO_SYSTEM_RELOAD": "1"
+        "LOOMIO_SYSTEM_RELOAD": "1",
+        "RAILS_ENV": "production"
       },
       "dependsOn": {
         "redis": {
@@ -209,7 +212,8 @@
         "DATABASE_URL": "postgresql://postgres:password@db/loomio_production",
         "REDIS_URL": "redis://redis:6379/0",
         "ACTIVE_STORAGE_SERVICE": "local",
-        "LOOMIO_SYSTEM_RELOAD": "1"
+        "LOOMIO_SYSTEM_RELOAD": "1",
+        "RAILS_ENV": "production"
       },
       "dependsOn": {
         "db": {
