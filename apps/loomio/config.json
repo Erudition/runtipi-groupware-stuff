@@ -1,0 +1,135 @@
+{
+  "name": "Loomio",
+  "available": true,
+  "port": 8100,
+  "id": "loomio",
+  "description": "Loomio is a discussion and decision making tool for collaborative organizations. It enables you to bring people together to discuss topics, explore proposals and make decisions. It's a discussion forum with a set of proposal and poll templates to help you facilitate a discussion towards an outcome.", 
+  "tipi_version": 1,
+  "version": "3.0.0", 
+  "categories": ["social"], 
+  "short_desc": "Loomio helps you create a more engaged and collaborative culture, build trust and coordinate action", 
+  "author": "Loomio Cooperative Limited", 
+  "source": "https://github.com/loomio/loomio",
+  "form_fields": [
+      {
+        "type": "text",
+        "label": "OAUTH_AUTH_URL is used to specify the auth endpoint, for example https://sso.yourdomain.com/realms/YourRealm/protocol/openid-connect/auth",
+        "max": 500,
+        "min": 3,
+        "required": false,
+        "env_variable": "OAUTH_AUTH_URL"
+    },
+      {
+        "type": "text",
+        "label": "OAUTH_TOKEN_URL is used to specify the token endpoint, for example https://sso.yourdomain.com/realms/YourRealm/protocol/openid-connect/token",
+        "max": 500,
+        "min": 3,
+        "required": false,
+        "env_variable": "OAUTH_TOKEN_URL"
+    },
+      {
+        "type": "text",
+        "label": "OAUTH_PROFILE_URL is used to fetch the user's profile data, for example https://sso.yourdomain.com/realms/YourRealm/protocol/openid-connect/userinfo",
+        "max": 500,
+        "min": 3,
+        "required": false,
+        "env_variable": "OAUTH_PROFILE_URL"
+    },
+      {
+        "type": "text",
+        "label": "OAUTH_SCOPE is the list of scopes passed in the auth request, for example: openid email profile",
+        "max": 50,
+        "min": 3,
+        "required": false,
+        "env_variable": "OAUTH_SCOPE"
+    },
+      {
+        "type": "text",
+        "label": "OAUTH_APP_KEY is what OIDC refers to as the Client ID. For example, loomio",
+        "max": 50,
+        "min": 3,
+        "required": false,
+        "env_variable": "OAUTH_APP_KEY"
+    },
+      {
+        "type": "text",
+        "label": "OAUTH_APP_SECRET is what OIDC refers to as the Client Secret. It's a long string of letters and numbers and other characters.",
+        "max": 500,
+        "min": 3,
+        "required": false,
+        "env_variable": "OAUTH_APP_SECRET"
+    },
+      {
+        "type": "text",
+        "label": "OAUTH_ATTR_UID specifies which user profile field is used for Loomio's internal unique identifier for this user. For example: email",
+        "max": 50,
+        "min": 3,
+        "required": false,
+        "env_variable": "OAUTH_ATTR_UID"
+    },
+      {
+        "type": "text",
+        "label": "OAUTH_ATTR_NAME specifies which user profile field is used for Loomio's displayed name, for example: name",
+        "max": 50,
+        "min": 3,
+        "required": false,
+        "env_variable": "OAUTH_ATTR_NAME"
+    },
+      {
+        "type": "text",
+        "label": "OAUTH_ATTR_EMAIL specifies which user profile field is used for the Loomio account email address, for example: email",
+        "max": 50,
+        "min": 2,
+        "required": false,
+        "env_variable": "OAUTH_ATTR_EMAIL"
+    },
+      {
+        "type": "text",
+        "label": "OAUTH_LOGIN_PROVIDER_NAME is the label used for the SSO login button. The user will see this value when they're prompted to log in using SSO. For example: Your Domain SSO",
+        "max": 100,
+        "min": 2,
+        "required": false,
+        "env_variable": "OAUTH_LOGIN_PROVIDER_NAME"
+    },
+      {
+        "type": "text",
+        "label": "SAML_IDP_METADATA_URL is used to specify the metadata endpoint, for example https://sso.yourdomain.com/realms/YourRealm/protocol/saml/descriptor. This setting is ignored if SAML_IDP_METADATA is set.",
+        "max": 500,
+        "min": 2,
+        "required": false,
+        "env_variable": "SAML_IDP_METADATA_URL"
+    },
+      {
+        "type": "text",
+        "label": "SAML_IDP_METADATA is used to directly specify the SAML configuration rather than fetching it from a URL. Useful if you don't want to hammer your SAML provider for this data, but not recommended for general use.",
+        "max": 5000,
+        "min": 2,
+        "required": false,
+        "env_variable": "SAML_IDP_METADATA"
+    },
+      {
+        "type": "text",
+        "label": "SAML_ISSUER is occasionally useful if you need to override the issuer value.",
+        "max": 500,
+        "min": 2,
+        "required": false,
+        "env_variable": "SAML_ISSUER"
+    },
+      {
+        "type": "text",
+        "label": "SAML_LOGIN_PROVIDER_NAME is the label used for the SSO login button. The user will see this value when they're prompted to log in using SSO. For example: Your Domain SSO",
+        "max": 100,
+        "min": 2,
+        "required": false,
+        "env_variable": "SAML"
+    },
+      {
+        "type": "number",
+        "label": "If you do not wish to allow users to create non-SSO accounts, set FEATURES_DISABLE_EMAIL_LOGIN to 1.",
+        "max": 1,
+        "min": 0,
+        "required": false,
+        "env_variable": "FEATURES_DISABLE_EMAIL_LOGIN"
+    },
+    ]
+}
