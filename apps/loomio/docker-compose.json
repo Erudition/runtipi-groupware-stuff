@@ -68,10 +68,10 @@
       },
       "dependsOn": {
         "db": {
-          "condition": "service_healthy"
+          "condition": "service_started"
         },
         "redis": {
-          "condition": "service_healthy"
+          "condition": "service_started"
         }
       }
     },
@@ -192,7 +192,7 @@
       },
       "dependsOn": {
         "redis": {
-          "condition": "service_healthy"
+          "condition": "service_started"
         }
       }
     },
@@ -217,7 +217,7 @@
       },
       "dependsOn": {
         "db": {
-          "condition": "service_healthy"
+          "condition": "service_started"
         }
       }
     },
