@@ -260,14 +260,6 @@
         "env_variable": "ALLOW_ROBOTS"
       },
       {
-        "type": "text",
-        "label": "Rails Environment",
-        "default": "production",
-        "placeholder": "production",
-        "required": false,
-        "env_variable": "RAILS_ENV"
-      },
-      {
         "type": "number",
         "label": "Puma: Number of Workers (default 1)",
         "hint": "See https://github.com/puma/puma",
