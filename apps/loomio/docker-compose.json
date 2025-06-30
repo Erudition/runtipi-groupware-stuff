@@ -68,10 +68,10 @@
       },
       "dependsOn": {
         "db": {
-          "condition": "service_started"
+          "condition": "service_healthy"
         },
         "redis": {
-          "condition": "service_started"
+          "condition": "service_healthy"
         }
       }
     },
@@ -93,35 +93,35 @@
       },
       "volumes": [
         {
-          "hostPath": "./uploads",
+          "hostPath": "${APP_DATA_DIR}/uploads",
           "containerPath": "/loomio/public/system",
           "readOnly": false,
           "shared": false,
           "private": false
         },
         {
-          "hostPath": "./storage",
+          "hostPath": "${APP_DATA_DIR}/storage",
           "containerPath": "/loomio/storage",
           "readOnly": false,
           "shared": false,
           "private": false
         },
         {
-          "hostPath": "./files",
+          "hostPath": "${APP_DATA_DIR}/files",
           "containerPath": "/loomio/public/files",
           "readOnly": false,
           "shared": false,
           "private": false
         },
         {
-          "hostPath": "./plugins",
+          "hostPath": "${APP_DATA_DIR}/plugins",
           "containerPath": "/loomio/plugins/docker",
           "readOnly": false,
           "shared": false,
           "private": false
         },
         {
-          "hostPath": "./tmp",
+          "hostPath": "${APP_DATA_DIR}/tmp",
           "containerPath": "/loomio/tmp",
           "readOnly": false,
           "shared": false,
@@ -133,18 +133,21 @@
       "name": "db",
       "image": "postgres:17",
       "environment": {
-        "PGDATA": "/pgdata"
+        "PGDATA": "/pgdata",
+        "POSTGRES_PASSWORD": "password",
+        "POSTGRES_DB": "loomio_production",
+        "DATABASE_URL": "postgresql://postgres:password@db/loomio_production"
       },
       "volumes": [
         {
-          "hostPath": "./pgdata",
+          "hostPath": "${APP_DATA_DIR}/pgdata",
           "containerPath": "/pgdata",
           "readOnly": false,
           "shared": false,
           "private": false
         },
         {
-          "hostPath": "./pgdumps",
+          "hostPath": "${APP_DATA_DIR}/pgdumps",
           "containerPath": "/pgdumps",
           "readOnly": false,
           "shared": false,
@@ -189,7 +192,7 @@
       },
       "dependsOn": {
         "redis": {
-          "condition": "service_started"
+          "condition": "service_healthy"
         }
       }
     },
@@ -211,6 +214,11 @@
         "ACTIVE_STORAGE_SERVICE": "local",
         "LOOMIO_SYSTEM_RELOAD": "1",
         "RAILS_ENV": "production"
+      },
+      "dependsOn": {
+        "db": {
+          "condition": "service_healthy"
+        }
       }
     },
     {
@@ -230,7 +238,7 @@
       },
       "volumes": [
         {
-          "hostPath": "./pgdumps",
+          "hostPath": "${APP_DATA_DIR}/pgdumps",
           "containerPath": "/backups",
           "readOnly": false,
           "shared": false,
@@ -240,7 +248,7 @@
       "user": "postgres:postgres",
       "dependsOn": {
         "db": {
-          "condition": "service_started"
+          "condition": "service_healthy"
         }
       }
     }
