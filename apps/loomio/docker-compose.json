@@ -1,7 +1,7 @@
 {
   "services": [
     {
-      "name": "loomio-app",
+      "name": "app",
       "image": "loomio/loomio:stable",
       "internalPort": 3000,
       "isMain": true,
@@ -76,7 +76,7 @@
       }
     },
     {
-      "name": "loomio-worker",
+      "name": "worker",
       "image": "loomio/loomio:stable",
       "environment": {
         "TASK": "worker",
@@ -130,7 +130,7 @@
       ]
     },
     {
-      "name": "loomio-db",
+      "name": "db",
       "image": "postgres:17",
       "environment": {
         "PGDATA": "/pgdata"
@@ -156,14 +156,14 @@
       }
     },
     {
-      "name": "loomio-redis",
+      "name": "redis",
       "image": "redis:5.0",
       "healthCheck": {
         "test": "CMD redis-cli ping"
       }
     },
     {
-      "name": "loomio-mailin",
+      "name": "mailin",
       "image": "loomio/mailin-docker:latest",
       "environment": {
         "WEBHOOK_URL": "http://app:3000/email_processor/"
@@ -171,7 +171,7 @@
       "internalPort": 25
     },
     {
-      "name": "loomio-channels",
+      "name": "channels",
       "image": "loomio/loomio_channel_server",
       "environment": {
         "VIRTUAL_HOST": "channels.${APP_DOMAIN}",
@@ -194,7 +194,7 @@
       }
     },
     {
-      "name": "loomio-hocuspocus",
+      "name": "hocuspocus",
       "image": "loomio/loomio_channel_server",
       "command": "npm run hocuspocus",
       "environment": {
@@ -239,7 +239,7 @@
       ],
       "user": "postgres:postgres",
       "dependsOn": {
-        "loomio-db": {
+        "db": {
           "condition": "service_started"
         }
       }
