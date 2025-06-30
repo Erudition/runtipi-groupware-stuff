@@ -83,7 +83,7 @@
         "placeholder": "smtpusername",
         "label": "SMTP: Username",
         "required": true,
-        "env_variable": "SMTP_PORT"
+        "env_variable": "SMTP_USERNAME"
       },
       {
         "type": "password",
@@ -218,7 +218,6 @@
       {
         "type": "boolean",
         "label": "Feature: Disable Help Link",
-        "hint": "disable the help link",
         "default": 0,
         "required": false,
         "env_variable": "FEATURES_DISABLE_HELP_LINK"
