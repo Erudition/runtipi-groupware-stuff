@@ -7,7 +7,16 @@
       "isMain": true,
       "environment": {
         "VIRTUAL_HOST": "${APP_DOMAIN}",
-        "LETSENCRYPT_HOST": "${APP_DOMAIN}"
+        "LETSENCRYPT_HOST": "${APP_DOMAIN}",
+        "USE_RACK_ATTACK": "1",
+        "RACK_ATTACK_RATE_MULTPLIER": "1",
+        "RACK_ATTACK_TIME_MULTPLIER": "1",
+        "POSTGRES_PASSWORD": "password",
+        "POSTGRES_DB": "loomio_production",
+        "DATABASE_URL": "postgresql://postgres:password@db/loomio_production",
+        "REDIS_URL": "redis://redis:6379/0",
+        "ACTIVE_STORAGE_SERVICE": "local",
+        "LOOMIO_SYSTEM_RELOAD": "1"
       },
       "volumes": [
         {
@@ -69,7 +78,16 @@
       "name": "loomio-worker",
       "image": "loomio/loomio:stable",
       "environment": {
-        "TASK": "worker"
+        "TASK": "worker",
+        "USE_RACK_ATTACK": "1",
+        "RACK_ATTACK_RATE_MULTPLIER": "1",
+        "RACK_ATTACK_TIME_MULTPLIER": "1",
+        "POSTGRES_PASSWORD": "password",
+        "POSTGRES_DB": "loomio_production",
+        "DATABASE_URL": "postgresql://postgres:password@db/loomio_production",
+        "REDIS_URL": "redis://redis:6379/0",
+        "ACTIVE_STORAGE_SERVICE": "local",
+        "LOOMIO_SYSTEM_RELOAD": "1"
       },
       "volumes": [
         {
@@ -155,7 +173,16 @@
       "image": "loomio/loomio_channel_server",
       "environment": {
         "VIRTUAL_HOST": "channels.${APP_DOMAIN}",
-        "LETSENCRYPT_HOST": "channels.${APP_DOMAIN}"
+        "LETSENCRYPT_HOST": "channels.${APP_DOMAIN}",
+        "USE_RACK_ATTACK": "1",
+        "RACK_ATTACK_RATE_MULTPLIER": "1",
+        "RACK_ATTACK_TIME_MULTPLIER": "1",
+        "POSTGRES_PASSWORD": "password",
+        "POSTGRES_DB": "loomio_production",
+        "DATABASE_URL": "postgresql://postgres:password@db/loomio_production",
+        "REDIS_URL": "redis://redis:6379/0",
+        "ACTIVE_STORAGE_SERVICE": "local",
+        "LOOMIO_SYSTEM_RELOAD": "1"
       },
       "dependsOn": {
         "redis": {
@@ -170,7 +197,16 @@
       "environment": {
         "APP_URL": "http://app:3000",
         "VIRTUAL_HOST": "hocuspocus.${APP_DOMAIN}",
-        "LETSENCRYPT_HOST": "hocuspocus.${APP_DOMAIN}"
+        "LETSENCRYPT_HOST": "hocuspocus.${APP_DOMAIN}",
+        "USE_RACK_ATTACK": "1",
+        "RACK_ATTACK_RATE_MULTPLIER": "1",
+        "RACK_ATTACK_TIME_MULTPLIER": "1",
+        "POSTGRES_PASSWORD": "password",
+        "POSTGRES_DB": "loomio_production",
+        "DATABASE_URL": "postgresql://postgres:password@db/loomio_production",
+        "REDIS_URL": "redis://redis:6379/0",
+        "ACTIVE_STORAGE_SERVICE": "local",
+        "LOOMIO_SYSTEM_RELOAD": "1"
       }
     },
     {

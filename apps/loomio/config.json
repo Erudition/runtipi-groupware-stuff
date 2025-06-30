@@ -16,6 +16,88 @@
   "dynamic": true,
   "source": "https://github.com/loomio/loomio",
   "form_fields": [
+    {
+        "type": "text",
+        "hint": "the human name of the app",
+        "placeholder": "Loomio",
+        "label": "Site Name",
+        "required": false,
+        "env_variable": "SITE_NAME"
+      },
+      {
+        "type": "text",
+        "hint": "hostname for reply-to address in email notifications",
+        "placeholder": "hostname",
+        "label": "Reply Hostname",
+        "required": true,
+        "env_variable": "REPLY_HOSTNAME"
+      },
+      {
+        "type": "text",
+        "hint": "hostname of the node.js app that handles websocket stuff",
+        "placeholder": "wss://channels.REPLACE_WITH_HOSTNAME",
+        "label": "Channels URL",
+        "required": true,
+        "env_variable": "CHANNELS_URL"
+      },
+      {
+        "type": "text",
+        "hint": "hostname of the node.js app that handles websocket stuff",
+        "placeholder": "wss://hocuspocus.REPLACE_WITH_HOSTNAME",
+        "label": "HocusPocus URL",
+        "required": true,
+        "env_variable": "HOCUSPOCUS_URL"
+      },
+      {
+        "type": "text",
+        "placeholder": "plain",
+        "label": "SMTP: Auth type",
+        "default": "plain",
+        "required": false,
+        "env_variable": "SMTP_AUTH"
+      },
+      {
+        "type": "text",
+        "placeholder": "REPLACE_WITH_HOSTNAME",
+        "label": "SMTP: Domain",
+        "required": true,
+        "env_variable": "SMTP_DOMAIN"
+      },
+      {
+        "type": "text",
+        "placeholder": "smtp.example.com",
+        "label": "SMTP: Server",
+        "required": true,
+        "env_variable": "SMTP_SERVER"
+      },
+      {
+        "type": "number",
+        "placeholder": "465",
+        "label": "SMTP: Port",
+        "required": false,
+        "default": 465,
+        "env_variable": "SMTP_PORT"
+      },
+      {
+        "type": "text",
+        "placeholder": "smtpusername",
+        "label": "SMTP: Username",
+        "required": true,
+        "env_variable": "SMTP_PORT"
+      },
+      {
+        "type": "password",
+        "placeholder": "smtppassword",
+        "label": "SMTP: Password",
+        "required": true,
+        "env_variable": "SMTP_PASSWORD"
+      },
+      {
+        "type": "boolean",
+        "label": "SMTP: Use SSL",
+        "required": false,
+        "env_variable": "SMTP_USE_SSL"
+      },
       {
         "type": "text",
         "hint": "used to specify the auth endpoint",
@@ -177,6 +259,49 @@
         "default": 0,
         "required": false,
         "env_variable": "ALLOW_ROBOTS"
-      }
+      },
+      {
+        "type": "text",
+        "label": "Rails Environment",
+        "default": "production",
+        "placeholder": "production",
+        "required": false,
+        "env_variable": "RAILS_ENV"
+      },
+      {
+        "type": "number",
+        "label": "Puma: Number of Workers (default 1)",
+        "hint": "See https://github.com/puma/puma",
+        "default": 1,
+        "placeholder": 1,
+        "required": false,
+        "env_variable": "PUMA_WORKERS"
+      },
+      {
+        "type": "number",
+        "label": "Puma: Minimum Threads (default 3)",
+        "hint": "See https://github.com/puma/puma",
+        "default": 3,
+        "placeholder": 3,
+        "required": false,
+        "env_variable": "MIN_THREADS"
+      },
+      {
+        "type": "number",
+        "label": "Puma: Maximum Threads (default 3)",
+        "hint": "See https://github.com/puma/puma",
+        "default": 3,
+        "placeholder": 3,
+        "required": false,
+        "env_variable": "MAX_THREADS"
+      },
+      {
+        "type": "boolean",
+        "label": "Force SSL",
+        "hint": "Force all connections to be https",
+        "default": 1,
+        "required": false,
+        "env_variable": "FORCE_SSL"
+      },
     ]
 }
