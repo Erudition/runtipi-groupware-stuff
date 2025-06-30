@@ -4,7 +4,7 @@
   "port": 3000,
   "id": "loomio",
   "description": "Loomio is a discussion and decision making tool for collaborative organizations. It enables you to bring people together to discuss topics, explore proposals and make decisions. It's a discussion forum with a set of proposal and poll templates to help you facilitate a discussion towards an outcome.", 
-  "tipi_version": 1,
+  "tipi_version": 2,
   "website": "https://loomio.com",
   "exposable": true,
   "version": "3.0.0", 
