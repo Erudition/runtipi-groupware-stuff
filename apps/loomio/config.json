@@ -238,8 +238,9 @@
         "env_variable": "FEATURES_DISABLE_CREATE_GROUP"
       },
       {
-        "type": "Feature: Disable User Registration",
-        "label": "users must be invited?",
+        "type": "boolean",
+        "label": "Feature: Disable User Registration",
+        "hint": "users must be invited?",
         "default": 0,
         "required": false,
         "env_variable": "FEATURES_DISABLE_CREATE_USER"
@@ -273,7 +274,7 @@
         "label": "Puma: Number of Workers (default 1)",
         "hint": "See https://github.com/puma/puma",
         "default": 1,
-        "placeholder": 1,
+        "placeholder": "1",
         "required": false,
         "env_variable": "PUMA_WORKERS"
       },
@@ -282,7 +283,7 @@
         "label": "Puma: Minimum Threads (default 3)",
         "hint": "See https://github.com/puma/puma",
         "default": 3,
-        "placeholder": 3,
+        "placeholder": "3",
         "required": false,
         "env_variable": "MIN_THREADS"
       },
@@ -291,7 +292,7 @@
         "label": "Puma: Maximum Threads (default 3)",
         "hint": "See https://github.com/puma/puma",
         "default": 3,
-        "placeholder": 3,
+        "placeholder": "3",
         "required": false,
         "env_variable": "MAX_THREADS"
       },
@@ -302,6 +303,6 @@
         "default": 1,
         "required": false,
         "env_variable": "FORCE_SSL"
-      },
+      }
     ]
 }
