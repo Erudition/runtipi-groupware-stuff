@@ -1,0 +1,208 @@
+{
+  "services": [
+    {
+      "name": "loomio-app",
+      "image": "loomio/loomio:stable",
+      "internalPort": 3000,
+      "isMain": true,
+      "environment": {
+        "VIRTUAL_HOST": "${APP_DOMAIN}",
+        "LETSENCRYPT_HOST": "${APP_DOMAIN}"
+      },
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/uploads",
+          "containerPath": "/loomio/public/system",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/storage",
+          "containerPath": "/loomio/storage",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/files",
+          "containerPath": "/loomio/public/files",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/plugins",
+          "containerPath": "/loomio/plugins/docker",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/import",
+          "containerPath": "/import",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/tmp",
+          "containerPath": "/loomio/tmp",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ],
+      "healthCheck": {
+        "test": "curl --fail http://localhost:3000/ || exit 1"
+      },
+      "dependsOn": {
+        "db": {
+          "condition": "service_started"
+        },
+        "redis": {
+          "condition": "service_started"
+        }
+      }
+    },
+    {
+      "name": "loomio-worker",
+      "image": "loomio/loomio:stable",
+      "environment": {
+        "TASK": "worker"
+      },
+      "volumes": [
+        {
+          "hostPath": "./uploads",
+          "containerPath": "/loomio/public/system",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "./storage",
+          "containerPath": "/loomio/storage",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "./files",
+          "containerPath": "/loomio/public/files",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "./plugins",
+          "containerPath": "/loomio/plugins/docker",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "./tmp",
+          "containerPath": "/loomio/tmp",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ]
+    },
+    {
+      "name": "loomio-db",
+      "image": "postgres:17",
+      "environment": {
+        "PGDATA": "/pgdata"
+      },
+      "volumes": [
+        {
+          "hostPath": "./pgdata",
+          "containerPath": "/pgdata",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        },
+        {
+          "hostPath": "./pgdumps",
+          "containerPath": "/pgdumps",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ],
+      "healthCheck": {
+        "test": "CMD pg_isready -U postgres"
+      }
+    },
+    {
+      "name": "loomio-redis",
+      "image": "redis:5.0",
+      "healthCheck": {
+        "test": "CMD redis-cli ping"
+      }
+    },
+    {
+      "name": "loomio-mailin",
+      "image": "loomio/mailin-docker:latest",
+      "environment": {
+        "WEBHOOK_URL": "http://app:3000/email_processor/"
+      },
+      "internalPort": 25
+    },
+    {
+      "name": "loomio-channels",
+      "image": "loomio/loomio_channel_server",
+      "environment": {
+        "VIRTUAL_HOST": "channels.${APP_DOMAIN}",
+        "LETSENCRYPT_HOST": "channels.${APP_DOMAIN}"
+      },
+      "dependsOn": {
+        "redis": {
+          "condition": "service_started"
+        }
+      }
+    },
+    {
+      "name": "loomio-hocuspocus",
+      "image": "loomio/loomio_channel_server",
+      "command": "npm run hocuspocus",
+      "environment": {
+        "APP_URL": "http://app:3000",
+        "VIRTUAL_HOST": "hocuspocus.${APP_DOMAIN}",
+        "LETSENCRYPT_HOST": "hocuspocus.${APP_DOMAIN}"
+      }
+    },
+    {
+      "name": "pgbackups",
+      "image": "prodrigestivill/postgres-backup-local",
+      "environment": {
+        "POSTGRES_HOST": "db",
+        "POSTGRES_DB": "loomio_production",
+        "POSTGRES_USER": "postgres",
+        "POSTGRES_PASSWORD": "password",
+        "POSTGRES_EXTRA_OPTS": "-Z6 --schema",
+        "SCHEDULE": "@daily",
+        "BACKUP_KEEP_DAYS": "7",
+        "BACKUP_KEEP_WEEKS": "1",
+        "BACKUP_KEEP_MONTHS": "1",
+        "HEALTHCHECK_PORT": "8080"
+      },
+      "volumes": [
+        {
+          "hostPath": "./pgdumps",
+          "containerPath": "/backups",
+          "readOnly": false,
+          "shared": false,
+          "private": false
+        }
+      ],
+      "user": "postgres:postgres",
+      "dependsOn": {
+        "db": {
+          "condition": "service_started"
+        }
+      }
+    }
+  ]
+}
