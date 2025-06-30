@@ -51,7 +51,7 @@
       {
         "type": "text",
         "placeholder": "plain",
-        "label": "SMTP: Auth type",
+        "label": "SMTP Auth type",
         "default": "plain",
         "required": false,
         "env_variable": "SMTP_AUTH"
@@ -59,29 +59,28 @@
       {
         "type": "text",
         "placeholder": "REPLACE_WITH_HOSTNAME",
-        "label": "SMTP: Domain",
+        "label": "SMTP Domain",
         "required": true,
         "env_variable": "SMTP_DOMAIN"
       },
       {
         "type": "text",
         "placeholder": "smtp.example.com",
-        "label": "SMTP: Server",
+        "label": "SMTP Server",
         "required": true,
         "env_variable": "SMTP_SERVER"
       },
       {
         "type": "number",
         "placeholder": "465",
-        "label": "SMTP: Port",
+        "label": "SMTP Port",
         "required": false,
         "default": 465,
         "env_variable": "SMTP_PORT"
       },
       {
         "type": "text",
-        "placeholder": "smtpusername",
-        "label": "SMTP: Username",
+        "label": "SMTP Username",
         "required": true,
         "env_variable": "SMTP_USERNAME"
       },
