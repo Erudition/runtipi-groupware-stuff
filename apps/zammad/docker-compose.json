@@ -24,7 +24,7 @@
             },
             "volumes": [
                 {
-                    "hostPath": "zammad-backup",
+                    "hostPath": "./zammad-backup",
                     "containerPath": "/var/tmp/zammad",
                     "readOnly": false,
                     "shared": false,
@@ -62,7 +62,7 @@
             },
             "volumes": [
                 {
-                    "hostPath": "elasticsearch-data",
+                    "hostPath": "./elasticsearch-data",
                     "containerPath": "/bitnami/elasticsearch/data",
                     "readOnly": false,
                     "shared": false,
@@ -216,7 +216,7 @@
             "image": "redis:7.4.4-alpine",
             "volumes": [
                 {
-                    "hostPath": "redis-data",
+                    "hostPath": "./redis-data",
                     "containerPath": "/data",
                     "readOnly": false,
                     "shared": false,
