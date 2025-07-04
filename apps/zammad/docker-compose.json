@@ -34,7 +34,7 @@
                     "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": true,
-                    "shared": true,
+                    "shared": false,
                     "private": false
                 }
             ],
@@ -97,7 +97,7 @@
                     "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": false,
-                    "shared": true,
+                    "shared": false,
                     "private": false
                 }
             ],
@@ -140,7 +140,7 @@
                     "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": false,
-                    "shared": true,
+                    "shared": false,
                     "private": false
                 }
             ],
@@ -195,7 +195,7 @@
                     "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": false,
-                    "shared": true,
+                    "shared": false,
                     "private": false
                 }
             ],
@@ -251,7 +251,7 @@
                     "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": false,
-                    "shared": true,
+                    "shared": false,
                     "private": false
                 }
             ],
@@ -294,7 +294,7 @@
                     "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": false,
-                    "shared": true,
+                    "shared": false,
                     "private": false
                 }
             ],
