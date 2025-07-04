@@ -62,9 +62,9 @@
             },
             "volumes": [
                 {
-                    "hostPath": "./elasticsearch-data",
+                    "hostPath": "./zammad-elasticsearch-data",
                     "containerPath": "/bitnami/elasticsearch/data",
-                    "readOnly": true,
+                    "readOnly": false,
                     "shared": false,
                     "private": false
                 }
