@@ -4,7 +4,7 @@
   "port": 8080,
   "id": "zammad",
   "description": "a web-based, open-source helpdesk and customer support platform packed with features to streamline customer communication across channels",
-  "tipi_version": 2,
+  "tipi_version": 3,
   "website": "https://zammad.com/en/company/open-source",
   "exposable": true,
   "version": "6.5.0-101",
