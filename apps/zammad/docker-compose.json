@@ -31,10 +31,10 @@
                     "private": false
                 },
                 {
-                    "hostPath": "zammad-storage",
+                    "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": true,
-                    "shared": false,
+                    "shared": true,
                     "private": false
                 }
             ],
@@ -94,10 +94,10 @@
             },
             "volumes": [
                 {
-                    "hostPath": "zammad-storage",
+                    "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": false,
-                    "shared": false,
+                    "shared": true,
                     "private": false
                 }
             ],
@@ -137,10 +137,10 @@
             },
             "volumes": [
                 {
-                    "hostPath": "zammad-storage",
+                    "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": false,
-                    "shared": false,
+                    "shared": true,
                     "private": false
                 }
             ],
@@ -192,10 +192,10 @@
             },
             "volumes": [
                 {
-                    "hostPath": "zammad-storage",
+                    "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": false,
-                    "shared": false,
+                    "shared": true,
                     "private": false
                 }
             ],
@@ -248,10 +248,10 @@
             },
             "volumes": [
                 {
-                    "hostPath": "zammad-storage",
+                    "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": false,
-                    "shared": false,
+                    "shared": true,
                     "private": false
                 }
             ],
@@ -291,10 +291,10 @@
             },
             "volumes": [
                 {
-                    "hostPath": "zammad-storage",
+                    "hostPath": "./zammad-storage",
                     "containerPath": "/opt/zammad/storage",
                     "readOnly": false,
-                    "shared": false,
+                    "shared": true,
                     "private": false
                 }
             ],
