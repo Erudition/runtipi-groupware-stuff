@@ -1,0 +1,21 @@
+{
+  "name": "Zammad",
+  "available": true,
+  "port": 8080,
+  "id": "zammad",
+  "description": "a web-based, open-source helpdesk and customer support platform packed with features to streamline customer communication across channels",
+  "tipi_version": 8,
+  "website": "https://zammad.com/en/company/open-source",
+  "exposable": true,
+  "version": "3.0.0",
+  "categories": [
+    "utilities"
+  ],
+  "short_desc": "a web-based, open-source helpdesk and customer support platform packed with features to streamline customer communication across channels",
+  "author": "zammad",
+  "force_expose": true,
+  "generate_vapid_keys": true,
+  "dynamic": true,
+  "source": "https://github.com/zammad/zammad-docker-compose",
+  "form_fields": []
+}

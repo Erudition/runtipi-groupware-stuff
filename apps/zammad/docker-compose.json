@@ -1,0 +1,475 @@
+{
+    "services": [
+        {
+            "name": "zammad-backup",
+            "image": "${IMAGE_REPO:-ghcr.io/zammad/zammad}:${VERSION:-6.5.0-101}",
+            "command": [
+                "zammad-backup"
+            ],
+            "environment": {
+                "MEMCACHE_SERVERS": "${MEMCACHE_SERVERS:-zammad-memcached:11211}",
+                "POSTGRESQL_DB": "${POSTGRES_DB:-zammad_production}",
+                "POSTGRESQL_HOST": "${POSTGRES_HOST:-zammad-postgresql}",
+                "POSTGRESQL_USER": "${POSTGRES_USER:-zammad}",
+                "POSTGRESQL_PASS": "${POSTGRES_PASS:-zammad}",
+                "POSTGRESQL_PORT": "${POSTGRES_PORT:-5432}",
+                "POSTGRESQL_OPTIONS": "${POSTGRESQL_OPTIONS:-?pool=50}",
+                "POSTGRESQL_DB_CREATE": null,
+                "REDIS_URL": "${REDIS_URL:-redis://zammad-redis:6379}",
+                "S3_URL": null,
+                "BACKUP_DIR": "${BACKUP_DIR:-/var/tmp/zammad}",
+                "BACKUP_TIME": "${BACKUP_TIME:-03:00}",
+                "HOLD_DAYS": "${HOLD_DAYS:-10}",
+                "TZ": "${TZ:-Europe/Berlin}",
+                "AUTOWIZARD_JSON": null,
+                "AUTOWIZARD_RELATIVE_PATH": null,
+                "ELASTICSEARCH_ENABLED": null,
+                "ELASTICSEARCH_SCHEMA": null,
+                "ELASTICSEARCH_HOST": null,
+                "ELASTICSEARCH_PORT": null,
+                "ELASTICSEARCH_USER": "${ELASTICSEARCH_USER:-elastic}",
+                "ELASTICSEARCH_PASS": "${ELASTICSEARCH_PASS:-zammad}",
+                "ELASTICSEARCH_NAMESPACE": null,
+                "ELASTICSEARCH_REINDEX": null,
+                "NGINX_PORT": null,
+                "NGINX_CLIENT_MAX_BODY_SIZE": null,
+                "NGINX_SERVER_NAME": null,
+                "NGINX_SERVER_SCHEME": null,
+                "RAILS_TRUSTED_PROXIES": null,
+                "ZAMMAD_HTTP_TYPE": null,
+                "ZAMMAD_FQDN": null,
+                "ZAMMAD_WEB_CONCURRENCY": null,
+                "ZAMMAD_PROCESS_SESSIONS_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_SCHEDULED_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_DELAYED_JOBS_WORKERS": null,
+                "ZAMMAD_SESSION_JOBS_CONCURRENT": null,
+                "VIRTUAL_HOST": null,
+                "VIRTUAL_PORT": null,
+                "LETSENCRYPT_HOST": null,
+                "LETSENCRYPT_EMAIL": null
+            },
+            "volumes": [
+                {
+                    "hostPath": "zammad-backup",
+                    "containerPath": "/var/tmp/zammad",
+                    "readOnly": false,
+                    "shared": false,
+                    "private": false
+                },
+                {
+                    "hostPath": "zammad-storage",
+                    "containerPath": "/opt/zammad/storage",
+                    "readOnly": true,
+                    "shared": false,
+                    "private": false
+                }
+            ],
+            "user": "0:0",
+            "dependsOn": {
+                "zammad-memcached": {
+                    "condition": "service_started"
+                },
+                "zammad-postgresql": {
+                    "condition": "service_started"
+                },
+                "zammad-redis": {
+                    "condition": "service_started"
+                }
+            }
+        },
+        {
+            "name": "zammad-elasticsearch",
+            "image": "bitnami/elasticsearch:${ELASTICSEARCH_VERSION:-8.18.0}",
+            "environment": {
+                "ELASTICSEARCH_ENABLE_SECURITY": "true",
+                "ELASTICSEARCH_SKIP_TRANSPORT_TLS": "true",
+                "ELASTICSEARCH_ENABLE_REST_TLS": "false",
+                "ELASTICSEARCH_PASSWORD": "${ELASTICSEARCH_PASS:-zammad}",
+                "ELASTICSEARCH_HEAP_SIZE": null,
+                "ELASTICSEARCH_MAX_ALLOWED_MEMORY_PERCENTAGE": null,
+                "ELASTICSEARCH_MAX_ALLOWED_MEMORY": null,
+                "ELASTICSEARCH_MAX_TIMEOUT": null,
+                "ELASTICSEARCH_LOCK_ALL_MEMORY": null
+            },
+            "volumes": [
+                {
+                    "hostPath": "elasticsearch-data",
+                    "containerPath": "/bitnami/elasticsearch/data",
+                    "readOnly": false,
+                    "shared": false,
+                    "private": false
+                }
+            ]
+        },
+        {
+            "name": "zammad-init",
+            "image": "${IMAGE_REPO:-ghcr.io/zammad/zammad}:${VERSION:-6.5.0-101}",
+            "command": [
+                "zammad-init"
+            ],
+            "environment": {
+                "MEMCACHE_SERVERS": "${MEMCACHE_SERVERS:-zammad-memcached:11211}",
+                "POSTGRESQL_DB": "${POSTGRES_DB:-zammad_production}",
+                "POSTGRESQL_HOST": "${POSTGRES_HOST:-zammad-postgresql}",
+                "POSTGRESQL_USER": "${POSTGRES_USER:-zammad}",
+                "POSTGRESQL_PASS": "${POSTGRES_PASS:-zammad}",
+                "POSTGRESQL_PORT": "${POSTGRES_PORT:-5432}",
+                "POSTGRESQL_OPTIONS": "${POSTGRESQL_OPTIONS:-?pool=50}",
+                "POSTGRESQL_DB_CREATE": null,
+                "REDIS_URL": "${REDIS_URL:-redis://zammad-redis:6379}",
+                "S3_URL": null,
+                "BACKUP_DIR": "${BACKUP_DIR:-/var/tmp/zammad}",
+                "BACKUP_TIME": "${BACKUP_TIME:-03:00}",
+                "HOLD_DAYS": "${HOLD_DAYS:-10}",
+                "TZ": "${TZ:-Europe/Berlin}",
+                "AUTOWIZARD_JSON": null,
+                "AUTOWIZARD_RELATIVE_PATH": null,
+                "ELASTICSEARCH_ENABLED": null,
+                "ELASTICSEARCH_SCHEMA": null,
+                "ELASTICSEARCH_HOST": null,
+                "ELASTICSEARCH_PORT": null,
+                "ELASTICSEARCH_USER": "${ELASTICSEARCH_USER:-elastic}",
+                "ELASTICSEARCH_PASS": "${ELASTICSEARCH_PASS:-zammad}",
+                "ELASTICSEARCH_NAMESPACE": null,
+                "ELASTICSEARCH_REINDEX": null,
+                "NGINX_PORT": null,
+                "NGINX_CLIENT_MAX_BODY_SIZE": null,
+                "NGINX_SERVER_NAME": null,
+                "NGINX_SERVER_SCHEME": null,
+                "RAILS_TRUSTED_PROXIES": null,
+                "ZAMMAD_HTTP_TYPE": null,
+                "ZAMMAD_FQDN": null,
+                "ZAMMAD_WEB_CONCURRENCY": null,
+                "ZAMMAD_PROCESS_SESSIONS_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_SCHEDULED_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_DELAYED_JOBS_WORKERS": null,
+                "ZAMMAD_SESSION_JOBS_CONCURRENT": null,
+                "VIRTUAL_HOST": null,
+                "VIRTUAL_PORT": null,
+                "LETSENCRYPT_HOST": null,
+                "LETSENCRYPT_EMAIL": null
+            },
+            "volumes": [
+                {
+                    "hostPath": "zammad-storage",
+                    "containerPath": "/opt/zammad/storage",
+                    "readOnly": false,
+                    "shared": false,
+                    "private": false
+                }
+            ],
+            "user": "0:0",
+            "dependsOn": {
+                "zammad-postgresql": {
+                    "condition": "service_started"
+                }
+            }
+        },
+        {
+            "name": "zammad-memcached",
+            "image": "memcached:${MEMCACHE_VERSION:-1.6.38-alpine}",
+            "command": "memcached -m 256M"
+        },
+        {
+            "name": "zammad-nginx",
+            "image": "${IMAGE_REPO:-ghcr.io/zammad/zammad}:${VERSION:-6.5.0-101}",
+            "command": [
+                "zammad-nginx"
+            ],
+            "environment": {
+                "MEMCACHE_SERVERS": "${MEMCACHE_SERVERS:-zammad-memcached:11211}",
+                "POSTGRESQL_DB": "${POSTGRES_DB:-zammad_production}",
+                "POSTGRESQL_HOST": "${POSTGRES_HOST:-zammad-postgresql}",
+                "POSTGRESQL_USER": "${POSTGRES_USER:-zammad}",
+                "POSTGRESQL_PASS": "${POSTGRES_PASS:-zammad}",
+                "POSTGRESQL_PORT": "${POSTGRES_PORT:-5432}",
+                "POSTGRESQL_OPTIONS": "${POSTGRESQL_OPTIONS:-?pool=50}",
+                "POSTGRESQL_DB_CREATE": null,
+                "REDIS_URL": "${REDIS_URL:-redis://zammad-redis:6379}",
+                "S3_URL": null,
+                "BACKUP_DIR": "${BACKUP_DIR:-/var/tmp/zammad}",
+                "BACKUP_TIME": "${BACKUP_TIME:-03:00}",
+                "HOLD_DAYS": "${HOLD_DAYS:-10}",
+                "TZ": "${TZ:-Europe/Berlin}",
+                "AUTOWIZARD_JSON": null,
+                "AUTOWIZARD_RELATIVE_PATH": null,
+                "ELASTICSEARCH_ENABLED": null,
+                "ELASTICSEARCH_SCHEMA": null,
+                "ELASTICSEARCH_HOST": null,
+                "ELASTICSEARCH_PORT": null,
+                "ELASTICSEARCH_USER": "${ELASTICSEARCH_USER:-elastic}",
+                "ELASTICSEARCH_PASS": "${ELASTICSEARCH_PASS:-zammad}",
+                "ELASTICSEARCH_NAMESPACE": null,
+                "ELASTICSEARCH_REINDEX": null,
+                "NGINX_PORT": null,
+                "NGINX_CLIENT_MAX_BODY_SIZE": null,
+                "NGINX_SERVER_NAME": null,
+                "NGINX_SERVER_SCHEME": null,
+                "RAILS_TRUSTED_PROXIES": null,
+                "ZAMMAD_HTTP_TYPE": null,
+                "ZAMMAD_FQDN": null,
+                "ZAMMAD_WEB_CONCURRENCY": null,
+                "ZAMMAD_PROCESS_SESSIONS_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_SCHEDULED_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_DELAYED_JOBS_WORKERS": null,
+                "ZAMMAD_SESSION_JOBS_CONCURRENT": null,
+                "VIRTUAL_HOST": null,
+                "VIRTUAL_PORT": null,
+                "LETSENCRYPT_HOST": null,
+                "LETSENCRYPT_EMAIL": null
+            },
+            "volumes": [
+                {
+                    "hostPath": "zammad-storage",
+                    "containerPath": "/opt/zammad/storage",
+                    "readOnly": false,
+                    "shared": false,
+                    "private": false
+                }
+            ],
+            "dependsOn": {
+                "zammad-railsserver": {
+                    "condition": "service_started"
+                }
+            }
+        },
+        {
+            "name": "zammad-postgresql",
+            "image": "postgres:${POSTGRES_VERSION:-17.5-alpine}",
+            "environment": {
+                "POSTGRES_DB": "${POSTGRES_DB:-zammad_production}",
+                "POSTGRES_USER": "${POSTGRES_USER:-zammad}",
+                "POSTGRES_PASSWORD": "${POSTGRES_PASS:-zammad}"
+            },
+            "volumes": [
+                {
+                    "hostPath": "postgresql-data",
+                    "containerPath": "/var/lib/postgresql/data",
+                    "readOnly": false,
+                    "shared": false,
+                    "private": false
+                }
+            ]
+        },
+        {
+            "name": "zammad-railsserver",
+            "image": "${IMAGE_REPO:-ghcr.io/zammad/zammad}:${VERSION:-6.5.0-101}",
+            "command": [
+                "zammad-railsserver"
+            ],
+            "environment": {
+                "MEMCACHE_SERVERS": "${MEMCACHE_SERVERS:-zammad-memcached:11211}",
+                "POSTGRESQL_DB": "${POSTGRES_DB:-zammad_production}",
+                "POSTGRESQL_HOST": "${POSTGRES_HOST:-zammad-postgresql}",
+                "POSTGRESQL_USER": "${POSTGRES_USER:-zammad}",
+                "POSTGRESQL_PASS": "${POSTGRES_PASS:-zammad}",
+                "POSTGRESQL_PORT": "${POSTGRES_PORT:-5432}",
+                "POSTGRESQL_OPTIONS": "${POSTGRESQL_OPTIONS:-?pool=50}",
+                "POSTGRESQL_DB_CREATE": null,
+                "REDIS_URL": "${REDIS_URL:-redis://zammad-redis:6379}",
+                "S3_URL": null,
+                "BACKUP_DIR": "${BACKUP_DIR:-/var/tmp/zammad}",
+                "BACKUP_TIME": "${BACKUP_TIME:-03:00}",
+                "HOLD_DAYS": "${HOLD_DAYS:-10}",
+                "TZ": "${TZ:-Europe/Berlin}",
+                "AUTOWIZARD_JSON": null,
+                "AUTOWIZARD_RELATIVE_PATH": null,
+                "ELASTICSEARCH_ENABLED": null,
+                "ELASTICSEARCH_SCHEMA": null,
+                "ELASTICSEARCH_HOST": null,
+                "ELASTICSEARCH_PORT": null,
+                "ELASTICSEARCH_USER": "${ELASTICSEARCH_USER:-elastic}",
+                "ELASTICSEARCH_PASS": "${ELASTICSEARCH_PASS:-zammad}",
+                "ELASTICSEARCH_NAMESPACE": null,
+                "ELASTICSEARCH_REINDEX": null,
+                "NGINX_PORT": null,
+                "NGINX_CLIENT_MAX_BODY_SIZE": null,
+                "NGINX_SERVER_NAME": null,
+                "NGINX_SERVER_SCHEME": null,
+                "RAILS_TRUSTED_PROXIES": null,
+                "ZAMMAD_HTTP_TYPE": null,
+                "ZAMMAD_FQDN": null,
+                "ZAMMAD_WEB_CONCURRENCY": null,
+                "ZAMMAD_PROCESS_SESSIONS_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_SCHEDULED_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_DELAYED_JOBS_WORKERS": null,
+                "ZAMMAD_SESSION_JOBS_CONCURRENT": null,
+                "VIRTUAL_HOST": null,
+                "VIRTUAL_PORT": null,
+                "LETSENCRYPT_HOST": null,
+                "LETSENCRYPT_EMAIL": null
+            },
+            "volumes": [
+                {
+                    "hostPath": "zammad-storage",
+                    "containerPath": "/opt/zammad/storage",
+                    "readOnly": false,
+                    "shared": false,
+                    "private": false
+                }
+            ],
+            "dependsOn": {
+                "zammad-memcached": {
+                    "condition": "service_started"
+                },
+                "zammad-postgresql": {
+                    "condition": "service_started"
+                },
+                "zammad-redis": {
+                    "condition": "service_started"
+                }
+            }
+        },
+        {
+            "name": "zammad-redis",
+            "image": "redis:${REDIS_VERSION:-7.4.4-alpine}",
+            "volumes": [
+                {
+                    "hostPath": "redis-data",
+                    "containerPath": "/data",
+                    "readOnly": false,
+                    "shared": false,
+                    "private": false
+                }
+            ]
+        },
+        {
+            "name": "zammad-scheduler",
+            "image": "${IMAGE_REPO:-ghcr.io/zammad/zammad}:${VERSION:-6.5.0-101}",
+            "command": [
+                "zammad-scheduler"
+            ],
+            "environment": {
+                "MEMCACHE_SERVERS": "${MEMCACHE_SERVERS:-zammad-memcached:11211}",
+                "POSTGRESQL_DB": "${POSTGRES_DB:-zammad_production}",
+                "POSTGRESQL_HOST": "${POSTGRES_HOST:-zammad-postgresql}",
+                "POSTGRESQL_USER": "${POSTGRES_USER:-zammad}",
+                "POSTGRESQL_PASS": "${POSTGRES_PASS:-zammad}",
+                "POSTGRESQL_PORT": "${POSTGRES_PORT:-5432}",
+                "POSTGRESQL_OPTIONS": "${POSTGRESQL_OPTIONS:-?pool=50}",
+                "POSTGRESQL_DB_CREATE": null,
+                "REDIS_URL": "${REDIS_URL:-redis://zammad-redis:6379}",
+                "S3_URL": null,
+                "BACKUP_DIR": "${BACKUP_DIR:-/var/tmp/zammad}",
+                "BACKUP_TIME": "${BACKUP_TIME:-03:00}",
+                "HOLD_DAYS": "${HOLD_DAYS:-10}",
+                "TZ": "${TZ:-Europe/Berlin}",
+                "AUTOWIZARD_JSON": null,
+                "AUTOWIZARD_RELATIVE_PATH": null,
+                "ELASTICSEARCH_ENABLED": null,
+                "ELASTICSEARCH_SCHEMA": null,
+                "ELASTICSEARCH_HOST": null,
+                "ELASTICSEARCH_PORT": null,
+                "ELASTICSEARCH_USER": "${ELASTICSEARCH_USER:-elastic}",
+                "ELASTICSEARCH_PASS": "${ELASTICSEARCH_PASS:-zammad}",
+                "ELASTICSEARCH_NAMESPACE": null,
+                "ELASTICSEARCH_REINDEX": null,
+                "NGINX_PORT": null,
+                "NGINX_CLIENT_MAX_BODY_SIZE": null,
+                "NGINX_SERVER_NAME": null,
+                "NGINX_SERVER_SCHEME": null,
+                "RAILS_TRUSTED_PROXIES": null,
+                "ZAMMAD_HTTP_TYPE": null,
+                "ZAMMAD_FQDN": null,
+                "ZAMMAD_WEB_CONCURRENCY": null,
+                "ZAMMAD_PROCESS_SESSIONS_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_SCHEDULED_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_DELAYED_JOBS_WORKERS": null,
+                "ZAMMAD_SESSION_JOBS_CONCURRENT": null,
+                "VIRTUAL_HOST": null,
+                "VIRTUAL_PORT": null,
+                "LETSENCRYPT_HOST": null,
+                "LETSENCRYPT_EMAIL": null
+            },
+            "volumes": [
+                {
+                    "hostPath": "zammad-storage",
+                    "containerPath": "/opt/zammad/storage",
+                    "readOnly": false,
+                    "shared": false,
+                    "private": false
+                }
+            ],
+            "dependsOn": {
+                "zammad-memcached": {
+                    "condition": "service_started"
+                },
+                "zammad-postgresql": {
+                    "condition": "service_started"
+                },
+                "zammad-redis": {
+                    "condition": "service_started"
+                }
+            }
+        },
+        {
+            "name": "zammad-websocket",
+            "image": "${IMAGE_REPO:-ghcr.io/zammad/zammad}:${VERSION:-6.5.0-101}",
+            "command": [
+                "zammad-websocket"
+            ],
+            "environment": {
+                "MEMCACHE_SERVERS": "${MEMCACHE_SERVERS:-zammad-memcached:11211}",
+                "POSTGRESQL_DB": "${POSTGRES_DB:-zammad_production}",
+                "POSTGRESQL_HOST": "${POSTGRES_HOST:-zammad-postgresql}",
+                "POSTGRESQL_USER": "${POSTGRES_USER:-zammad}",
+                "POSTGRESQL_PASS": "${POSTGRES_PASS:-zammad}",
+                "POSTGRESQL_PORT": "${POSTGRES_PORT:-5432}",
+                "POSTGRESQL_OPTIONS": "${POSTGRESQL_OPTIONS:-?pool=50}",
+                "POSTGRESQL_DB_CREATE": null,
+                "REDIS_URL": "${REDIS_URL:-redis://zammad-redis:6379}",
+                "S3_URL": null,
+                "BACKUP_DIR": "${BACKUP_DIR:-/var/tmp/zammad}",
+                "BACKUP_TIME": "${BACKUP_TIME:-03:00}",
+                "HOLD_DAYS": "${HOLD_DAYS:-10}",
+                "TZ": "${TZ:-Europe/Berlin}",
+                "AUTOWIZARD_JSON": null,
+                "AUTOWIZARD_RELATIVE_PATH": null,
+                "ELASTICSEARCH_ENABLED": null,
+                "ELASTICSEARCH_SCHEMA": null,
+                "ELASTICSEARCH_HOST": null,
+                "ELASTICSEARCH_PORT": null,
+                "ELASTICSEARCH_USER": "${ELASTICSEARCH_USER:-elastic}",
+                "ELASTICSEARCH_PASS": "${ELASTICSEARCH_PASS:-zammad}",
+                "ELASTICSEARCH_NAMESPACE": null,
+                "ELASTICSEARCH_REINDEX": null,
+                "NGINX_PORT": null,
+                "NGINX_CLIENT_MAX_BODY_SIZE": null,
+                "NGINX_SERVER_NAME": null,
+                "NGINX_SERVER_SCHEME": null,
+                "RAILS_TRUSTED_PROXIES": null,
+                "ZAMMAD_HTTP_TYPE": null,
+                "ZAMMAD_FQDN": null,
+                "ZAMMAD_WEB_CONCURRENCY": null,
+                "ZAMMAD_PROCESS_SESSIONS_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_SCHEDULED_JOBS_WORKERS": null,
+                "ZAMMAD_PROCESS_DELAYED_JOBS_WORKERS": null,
+                "ZAMMAD_SESSION_JOBS_CONCURRENT": null,
+                "VIRTUAL_HOST": null,
+                "VIRTUAL_PORT": null,
+                "LETSENCRYPT_HOST": null,
+                "LETSENCRYPT_EMAIL": null
+            },
+            "volumes": [
+                {
+                    "hostPath": "zammad-storage",
+                    "containerPath": "/opt/zammad/storage",
+                    "readOnly": false,
+                    "shared": false,
+                    "private": false
+                }
+            ],
+            "dependsOn": {
+                "zammad-memcached": {
+                    "condition": "service_started"
+                },
+                "zammad-postgresql": {
+                    "condition": "service_started"
+                },
+                "zammad-redis": {
+                    "condition": "service_started"
+                }
+            }
+        }
+    ]
+}
