@@ -160,7 +160,7 @@
             },
             "volumes": [
                 {
-                    "hostPath": "postgresql-data",
+                    "hostPath": "./postgresql-data",
                     "containerPath": "/var/lib/postgresql/data",
                     "readOnly": false,
                     "shared": false,
