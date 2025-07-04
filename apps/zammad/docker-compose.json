@@ -64,7 +64,7 @@
                 {
                     "hostPath": "./elasticsearch-data",
                     "containerPath": "/bitnami/elasticsearch/data",
-                    "readOnly": false,
+                    "readOnly": true,
                     "shared": false,
                     "private": false
                 }
